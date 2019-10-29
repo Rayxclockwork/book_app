@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Book Results</title>
-  <link rel="stylesheet" href="styles/reset.css">
-  <link rel="stylesheet" href="styles/layout.css">
+  <link rel="stylesheet" href="../styles/reset.css">
+  <link rel="stylesheet" href="../styles/base.css">
 </head>
 <body>
   <h1>Book Results</h1>
@@ -14,7 +14,7 @@
       <li><img src=<%= book.cover %></li>
       <li><%= book.title %></li>
       <li><%= book.authors %></li>
-      <li><%= book.description %></li>
+      <li class="desc"><%= book.description %></li>
     <% }) %>
   </ul>
 </body>
