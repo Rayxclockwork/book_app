@@ -15,7 +15,12 @@ Creating a book-app that allows user to search for books by title or author.
 - tools: EJS, Express, Superagent, Dotenv 
 
 ## Change Log
-
+==1.0.3==
+- basic styling implemented
+==1.0.2==
+- error handler added for catching any potential issue
+==1.0.1==
+- book api implemented and outputting correct data
 ==1.0.0==
 - basic server setup and deployed on heroku
 
@@ -31,19 +36,19 @@ Actual time needed: 30 minutes
 **Feature 2, day 1: Google books api**
 Estimate of time: 30 minutes
 Time started: 10:10am
-Time Completed:
-Actual time needed:
+Time Completed: 11:30pm
+Actual time needed: 1 hour and 20 min
 
 
-**Feature 3, day 1:**
-Estimate of time:
-Time started:
-Time Completed:
-Actual time needed:
+**Feature 3, day 1: Error Handler**
+Estimate of time: 5 min
+Time started: 12:50pm
+Time Completed: 1:00pm
+Actual time needed: 10 min
 
 
-**Feature 4, day 1:** 
-Estimate of time:
-Time started:
-Time Completed:
-Actual time needed:
+**Feature 4, day 1: Styling** 
+Estimate of time: 1 hour
+Time started: 1:00pm
+Time Completed: 1:30pm
+Actual time needed: 30min

@@ -14,6 +14,7 @@ app.use(express.static('public'));
 
 app.get('/', newPage);
 app.post('/searches', bookSearch);
+app.get('*', handleError);
 
 function newPage(req, res){
   // let url =
@@ -42,6 +43,10 @@ function bookSearch(req, res){
       })
       res.status(200).render('pages/searches/show', {bookList: bookArray});
     })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send('server error.');
+    });
 }
 
 function Book(bookObject){
@@ -50,19 +55,18 @@ function Book(bookObject){
   if(regex.test(bookObject.image)) {
     bookObject.image.replace(regex, 'https:');
   }
-  let bookAuthors = bookObject.authors[0];
-  for(let i=0; i < bookObject.authors.length; i++) {
-    if(i !== bookObject.authors.length - 1){
-      bookAuthors += `${bookObject.authors[i]}, `;
-    } else {
-      bookAuthors += `${bookObject.authors[i]}`;
-    }
-  }
+
   this.cover = bookObject.imageLinks.thumbnail || placeholder;
   this.title = bookObject.title || 'no title available';
-  this.authors = bookAuthors || 'no author info available';
+  this.authors = bookObject.authors || 'no author info available';
   this.description = bookObject.description || 'no description available';
 }
+
+
+function handleError(request, response) {
+  response.status(404).send('Server connection problem');
+}
+
 
 app.listen(PORT, () => {
   console.log(`living on ${PORT}`);
