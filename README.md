@@ -13,6 +13,7 @@ Creating a book-app that allows user to search for books by title or author.
 ## Architecture
 - language: javascript, html, css
 - tools: EJS, Express, Superagent, Dotenv 
+- Schema: books.sql
 
 ## Change Log
 ==1.0.3==
@@ -23,6 +24,7 @@ Creating a book-app that allows user to search for books by title or author.
 - book api implemented and outputting correct data
 ==1.0.0==
 - basic server setup and deployed on heroku
+
 
 ## Feature Log
 
@@ -52,3 +54,28 @@ Estimate of time: 1 hour
 Time started: 1:00pm
 Time Completed: 1:30pm
 Actual time needed: 30min
+
+
+**Feature 1, Day2: Database**
+Estimate of time: 1 hour
+Time started: 9:22am
+Time Completed: 
+Actual time needed: 
+
+**Feature 2, Day2: View Details**
+Estimate of time: 
+Time started:
+Time Completed: 
+Actual time needed: 
+
+**Feature 3, Day2: Edit details**
+Estimate of time: 
+Time started: 
+Time Completed: 
+Actual time needed: 
+
+**Feature 4, Day2: Add new books**
+Estimate of time: 
+Time started: 
+Time Completed: 
+Actual time needed: 
