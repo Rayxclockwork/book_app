@@ -59,8 +59,8 @@ Actual time needed: 30min
 **Feature 1, Day2: Database**
 Estimate of time: 1 hour
 Time started: 9:22am
-Time Completed: 
-Actual time needed: 
+Time Completed: 11:30am
+Actual time needed: 2 hours
 
 **Feature 2, Day2: View Details**
 Estimate of time: 

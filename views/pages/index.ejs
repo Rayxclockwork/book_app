@@ -16,6 +16,7 @@
       <li>Author: <%= book.author %></li>
       <li>isbn: <%= book.isbn %></li>
       <li>Description: <%= book.description %></li>
+      <li><a href="/books/<%= book.id %>">View Details</a></li>
     <% }) %>
     </ul>
     <h3><%= books.length %></h3>
