@@ -1,10 +1,12 @@
 'use strict';
 
 const express = require('express');
+const pg = require('pg');
 require('dotenv').config();
 require('ejs');
 const superagent = require('superagent');
 
+const client = new pg.Client(process.env.DATABASE_URL);
 const app = express();
 const PORT = process.env.PORT || 3001;
 
@@ -12,13 +14,17 @@ app.use(express.urlencoded({extended:true}));
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
-app.get('/', newPage);
+app.get('/', fetchBookData);
 app.post('/searches', bookSearch);
 app.get('*', handleError);
 
-function newPage(req, res){
-  // let url =
-  res.render('pages/index');
+function fetchBookData(req, res){
+  let SQL = 'SELECT * FROM books';
+  client.query(SQL)
+    .then(results => {
+      const booksArr = results.rows
+      res.render('pages/index', {books: booksArr});
+    })
 }
 
 function bookSearch(req, res){
@@ -68,6 +74,11 @@ function handleError(request, response) {
 }
 
 
-app.listen(PORT, () => {
-  console.log(`living on ${PORT}`);
-})
+client.connect()
+  .then(() => {
+    console.log('connected to db');
+    app.listen(PORT, () => console.log(`app is listening on ${PORT}`));
+  })
+  .catch(err => {
+    throw `PG Startup Error: ${err.message}`;
+  })
