@@ -15,6 +15,7 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
 app.get('/', fetchBookData);
+app.get('/new', newPage);
 app.post('/searches', bookSearch);
 app.get('*', handleError);
 
@@ -25,6 +26,10 @@ function fetchBookData(req, res){
       const booksArr = results.rows
       res.render('pages/index', {books: booksArr});
     })
+}
+
+function newPage(req, res){
+  res.render('pages/searches/new');
 }
 
 function bookSearch(req, res){

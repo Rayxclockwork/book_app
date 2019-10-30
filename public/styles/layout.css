@@ -1,14 +1,16 @@
+section {
+  text-align: center;
+}
+
 h1 {
   font-size: 2em;
   color: white;
-  text-align: center;
 }
 
 ul {
   display: flexbox;
   width: 90%;
   margin: auto;
-  text-align: center;
 }
 
 ul li {
