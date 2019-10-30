@@ -16,6 +16,7 @@ app.use(express.static('public'));
 
 app.get('/', fetchBookData);
 app.get('/new', newPage);
+app.get('/books/:id', getDetails);
 app.post('/searches', bookSearch);
 app.get('*', handleError);
 
@@ -30,6 +31,18 @@ function fetchBookData(req, res){
 
 function newPage(req, res){
   res.render('pages/searches/new');
+}
+
+function getDetails(req, res){
+  const sql = `SELECT * FROM books WHERE id=$1;`;
+  const safeValues = [req.params.id];
+
+  client.query(sql, safeValues)
+    .then(sqlResults => {
+      const selectedBook = sqlResults.rows[0];
+      res.render('pages/books/detail', {bookInfo:selectedBook})
+    })
+    .catch(err => {console.error(err)});
 }
 
 function bookSearch(req, res){
