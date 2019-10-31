@@ -1,32 +1,5 @@
-section {
-  text-align: center;
-}
 
-h1 {
-  font-size: 2em;
-  color: white;
-}
-
-ul {
-  display: flexbox;
-  width: 90%;
-  margin: auto;
-}
-
-ul li {
-  margin: 1em;
-}
-
-.desc {
-  width: 100%;
-  margin: 1em auto;
-}
 
 @media (min-width: 1024px) {
-  ul {
-    width: 50%;
-  }
-  .desc{
-    width: 80%;
-  }
+
 }

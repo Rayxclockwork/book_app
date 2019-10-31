@@ -1,15 +1,15 @@
 'use strict';
 
 const express = require('express');
-const pg = require('pg');
 require('dotenv').config();
 require('ejs');
 const methodOverride = require('method-override');
 const superagent = require('superagent');
+const pg = require('pg');
 
+const PORT = process.env.PORT || 3001;
 const client = new pg.Client(process.env.DATABASE_URL);
 const app = express();
-const PORT = process.env.PORT || 3001;
 
 app.use(express.urlencoded({extended:true}));
 app.set('view engine', 'ejs');
@@ -41,7 +41,7 @@ function getDetails(req, res){
   client.query(sql, safeValues)
     .then(sqlResults => {
       const selectedBook = sqlResults.rows[0];
-      res.render('pages/books/detail', {bookInfo:selectedBook})
+      res.render('pages/books/show', {bookInfo:selectedBook})
     })
     .catch(err => {console.error(err)});
 }
