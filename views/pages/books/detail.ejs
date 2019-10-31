@@ -2,6 +2,19 @@
   <p><img src="<%= bookInfo.image_url %>"></p>
   <p>Title: <%= bookInfo.title %></p>
   <p>Author: <%= bookInfo.author %></p>
-  <p>isbn: <%= bookInfo.isbn %></p>
   <p>Description: <%= bookInfo.description %></p>
+  <p>isbn: <%= bookInfo.isbn %></p>
+  <button>Select This Book</button>
 </section>
+
+<!-- <form action="/update/" method="post"> -->
+<form>
+  <input type="text" name="title" value="<%- bookInfo.title %>">
+  <input type="text" name="author" value="<%- bookInfo.author %>">
+  <input type="text" name="image_url" value="<%- bookInfo.image_url %>" placeholder="">
+  <input type="text" name="isbn" value="<%- bookInfo.isbn %>" placeholder="">
+  <textarea name="description" placeholder="" cols='30' rows='10'><%= bookInfo.description %></textarea>
+  <input type="text" name="bookshelf" placeholder="bookshelf name">
+  <button class="close-btn">Close</button>
+  <button type="submit">Add to Database</button>
+</form>
