@@ -20,6 +20,16 @@ app.get('/new', newPage);
 app.get('/books/:id', getDetails);
 app.post('/searches', bookSearch);
 app.get('*', handleError);
+app.post('/add', addBook);
+
+app.use(methodOverride((request, response) => {
+  if(request.body && typeof request.body === 'object' && '_method' in request.body){
+    // look in the urlencoded POST body and delete it
+    let method = request.body._method;
+    delete request.body._method;
+    return method;
+  }
+}))
 
 function fetchBookData(req, res){
   let SQL = 'SELECT * FROM books';
@@ -74,6 +84,17 @@ function bookSearch(req, res){
     });
 }
 
+function addBook(req, res) {
+  console.log(req.body);
+  let {author, title, isbn, image_url, description, bookshelf} = req.body;
+  let SQL = 'INSERT INTO books(author, title, isbn, image_url, description, bookshelf) VALUES ($1, $2, $3, $4, $5, $6);';
+  let safeValues = [author, title, isbn, image_url, description, bookshelf];
+  
+  return client.query(SQL,safeValues)
+    .then(res.redirect('/'))
+    .catch(err => handleError(err, res));
+}
+
 function Book(bookObject){
   const placeholder = `https://i.imgur.com/J5LVHEL.jpg`;
   let regex = /^(http:)/g;
@@ -96,7 +117,7 @@ function Book(bookObject){
 
 
 function handleError(request, response) {
-  response.status(404).send('Server connection problem');
+  response.render('pages/error', { error: 'Uh Oh' });
 }
 
 
