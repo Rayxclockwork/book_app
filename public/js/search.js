@@ -1,8 +1,8 @@
 function init() {
   $('.menu').on('click', menuHandler);
-  $('button').on('click', buttonHandler);
+  $('.select-btn').on('click', buttonHandler);
   $('.close-btn').on('click', closeHandler);
-  $('form').hide();
+  $('.form-section').hide();
 }
 
 function menuHandler() {

@@ -87,11 +87,20 @@ function bookSearch(req, res){
 function addBook(req, res) {
   console.log(req.body);
   let {author, title, isbn, image_url, description, bookshelf} = req.body;
-  let SQL = 'INSERT INTO books(author, title, isbn, image_url, description, bookshelf) VALUES ($1, $2, $3, $4, $5, $6);';
+  let SQL = 'INSERT INTO books(author, title, isbn, image_url, description, bookshelf) VALUES ($1, $2, $3, $4, $5, $6) returning id;';
   let safeValues = [author, title, isbn, image_url, description, bookshelf];
-  
-  return client.query(SQL,safeValues)
-    .then(res.redirect('/'))
+
+  client.query(SQL,safeValues)
+    .then(results =>{
+      //console.log(results.rows[0].id);
+      const SQL = `SELECT * FROM books WHERE id=$1`;
+      const safeValues = [results.rows[0].id];
+      client.query(SQL, safeValues)
+        .then(output => {
+          const selectedBook = output.rows[0];
+          res.render('pages/books/show', {bookInfo:selectedBook})
+        })
+    })
     .catch(err => handleError(err, res));
 }
 

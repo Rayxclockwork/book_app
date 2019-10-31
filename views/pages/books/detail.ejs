@@ -4,9 +4,11 @@
   <p>Author: <%= bookInfo.author %></p>
   <p>Description: <%= bookInfo.description %></p>
   <p>isbn: <%= bookInfo.isbn %></p>
-  <button>Select This Book</button>
+  <button class="select-btn">Select This Book</button>
 </section>
 
+<section class="form-section">
+<button class="close-btn">Close</button>
 <form action="/add" method="post">
   <!-- <input type="hidden" name="_method" value="post"> -->
   <input type="text" name="title" value="<%- bookInfo.title %>" required>
@@ -15,6 +17,6 @@
   <input type="text" name="isbn" value="<%- bookInfo.isbn %>" placeholder="">
   <textarea name="description" placeholder="" cols='30' rows='10' required><%= bookInfo.description %></textarea>
   <input type="text" name="bookshelf" placeholder="bookshelf name" required>
-  <button class="close-btn">Close</button>
   <button type="submit">Add to Database</button>
 </form>
+</section>
