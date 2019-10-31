@@ -1,7 +1,10 @@
 @import 'layout.css';
 @import 'modules.css';
-@import 'icons.css';
+@import 'fonts.css';
 
 body{
-  background-color: cornflowerblue;
+  background-color: #998c69;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1em;
+  color: #1d0d04;
 }
