@@ -1,24 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles/reset.css">
-  <link rel="stylesheet" href="styles/base.css">
-  <title>Book app</title>
+  <%- include('../layout/head') %>
 </head>
 <body>
+  <p><a href="/new">Search</a></p>
   <section class="book-results">
-    <ul>
     <% books.forEach(book => { %>
-      <li><img src="<%= book.image_url %>"></li>
-      <li>Title: <%= book.title %></li>
-      <li>Author: <%= book.author %></li>
-      <li>isbn: <%= book.isbn %></li>
-      <li>Description: <%= book.description %></li>
-      <li><a href="/books/<%= book.id %>">View Details</a></li>
+      <%- include('books/detail', {bookInfo: book}) %>
+      <div><a href="/books/<%= book.id %>">View Details</a></div>
     <% }) %>
-    </ul>
     <h3><%= books.length %></h3>
   </section>
 </body>

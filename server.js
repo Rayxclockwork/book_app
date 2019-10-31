@@ -4,6 +4,7 @@ const express = require('express');
 const pg = require('pg');
 require('dotenv').config();
 require('ejs');
+const methodOverride = require('method-override');
 const superagent = require('superagent');
 
 const client = new pg.Client(process.env.DATABASE_URL);
@@ -65,7 +66,7 @@ function bookSearch(req, res){
       const bookArray = results.body.items.map(book => {
         return new Book(book.volumeInfo);
       })
-      res.status(200).render('pages/searches/show', {bookList: bookArray});
+      res.status(200).render('pages/searches/show', {books: bookArray});
     })
     .catch((error) => {
       console.error(error);
@@ -76,13 +77,20 @@ function bookSearch(req, res){
 function Book(bookObject){
   const placeholder = `https://i.imgur.com/J5LVHEL.jpg`;
   let regex = /^(http:)/g;
+  let isbnStr;
   if(regex.test(bookObject.image)) {
     bookObject.image.replace(regex, 'https:');
   }
+  if(bookObject.industryIdentifiers !== undefined) {
+    isbnStr = `${bookObject.industryIdentifiers[0].type} ${bookObject.industryIdentifiers[0].identifier}`;
+  } else {
+    isbnStr = 'no isbn available';
+  }
 
-  this.cover = bookObject.imageLinks.thumbnail || placeholder;
+  this.image_url = bookObject.imageLinks.thumbnail || placeholder;
   this.title = bookObject.title || 'no title available';
-  this.authors = bookObject.authors || 'no author info available';
+  this.author = bookObject.authors || 'no author info available';
+  this.isbn = isbnStr || 'no isbn available';
   this.description = bookObject.description || 'no description available';
 }
 
