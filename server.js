@@ -78,7 +78,7 @@ function searchBook(req, res){
       const bookArray = results.body.items.map(book => {
         return new Book(book.volumeInfo);
       })
-      res.status(200).render('pages/searches/show', {books: bookArray});
+      res.status(200).render('pages/searches/show', {books: bookArray, isEditForm: false});
     })
     .catch((error) => {
       console.error(error);
@@ -109,11 +109,21 @@ function singleBook(req, res){
   client.query(SQL, safeValues)
     .then(results => {
       const selectedBook = results.rows[0];
-      res.render('pages/books/show', {bookInfo:selectedBook})
+      populateDropMenu()
+        .then(shelves =>{
+          let shelvesArray = shelves.rows;
+          res.render('pages/books/show', {bookInfo:selectedBook, isEditForm: true, bookshelves: shelvesArray})
+        })
     })
     .catch(err => {console.error(err)});
 }
 
+function populateDropMenu(){
+  let SQL = 'SELECT DISTINCT bookshelf from books';
+  return client.query(SQL);
+}
+
+//this function handles book info updating.
 function updateBook(req, res){
   let {author, title, isbn, image_url, description, bookshelf} = req.body;
   let SQL = 'UPDATE books SET author=$1, title=$2, isbn=$3, image_url=$4, description=$5, bookshelf=$6 WHERE id=$7;';
@@ -125,6 +135,7 @@ function updateBook(req, res){
     })
     .catch(err => {console.error(err)});
 }
+
 //this is the Book constructor that handles data formatting.
 function Book(bookObject){
   const placeholder = `https://i.imgur.com/J5LVHEL.jpg`;
