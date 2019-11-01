@@ -17,19 +17,6 @@ app.use(express.urlencoded({extended:true}));
 app.set('view engine', 'ejs');
 //set static files in public so they can be used on the front-end.
 app.use(express.static('public'));
-//this displays current books from database
-app.get('/', renderBookIndex);
-//this renders the search page.
-app.get('/new', newSearch);
-//this handles the search query for Google Books API
-app.post('/searches', searchBook);
-//this handles adding book to database (and redirect to singleBook to display in detail page)
-app.post('/add', addBook);
-//this handles rendering detail page of single book
-app.get('/books/:id', singleBook);
-//this is general error handling
-app.get('*', handleError);
-
 //this is method override for PUT and DELETE in form
 app.use(methodOverride((request, response) => {
   if(request.body && typeof request.body === 'object' && '_method' in request.body){
@@ -40,7 +27,24 @@ app.use(methodOverride((request, response) => {
   }
 }))
 
-//This function handles fetching book data from database and render them on index.ejs 
+//this displays current books from database
+app.get('/', renderBookIndex);
+//this renders the search page.
+app.get('/new', newSearch);
+//this handles the search query for Google Books API
+app.post('/searches', searchBook);
+//this handles adding book to database (and redirect to singleBook to display in detail page)
+app.post('/add', addBook);
+//this handles rendering detail page of single book
+app.get('/books/:id', singleBook);
+//this handles updating book info
+app.put('/update/:id', updateBook);
+//this handles deleting book entry
+app.delete('/delete/:id', deleteBook);
+//this is general error handling
+app.get('*', handleError);
+
+//This function handles fetching book data from database and render them on index.ejs
 function renderBookIndex(req, res){
   let SQL = 'SELECT * FROM books';
   client.query(SQL)
@@ -76,7 +80,11 @@ function searchBook(req, res){
       const bookArray = results.body.items.map(book => {
         return new Book(book.volumeInfo);
       })
-      res.status(200).render('pages/searches/show', {books: bookArray});
+      populateDropMenu()
+        .then(shelves =>{
+          let shelvesArray = shelves.rows;
+          res.status(200).render('pages/searches/show', {books: bookArray, isEditForm: false, bookshelves: shelvesArray});
+        })
     })
     .catch((error) => {
       console.error(error);
@@ -101,15 +109,47 @@ function addBook(req, res) {
 
 //This function renders a single book (and all of its info) on the show.ejs
 function singleBook(req, res){
-  const sql = `SELECT * FROM books WHERE id=$1;`;
+  const SQL = `SELECT * FROM books WHERE id=$1;`;
   const safeValues = [req.params.id];
 
-  client.query(sql, safeValues)
-    .then(sqlResults => {
-      const selectedBook = sqlResults.rows[0];
-      res.render('pages/books/show', {bookInfo:selectedBook})
+  client.query(SQL, safeValues)
+    .then(results => {
+      const selectedBook = results.rows[0];
+      populateDropMenu()
+        .then(shelves =>{
+          let shelvesArray = shelves.rows;
+          res.render('pages/books/show', {bookInfo:selectedBook, isEditForm: true, bookshelves: shelvesArray})
+        })
     })
     .catch(err => {console.error(err)});
+}
+
+function populateDropMenu(){
+  let SQL = 'SELECT DISTINCT bookshelf from books';
+  return client.query(SQL);
+}
+
+//this function handles book info updating.
+function updateBook(req, res){
+  let {author, title, isbn, image_url, description, bookshelf} = req.body;
+  let SQL = 'UPDATE books SET author=$1, title=$2, isbn=$3, image_url=$4, description=$5, bookshelf=$6 WHERE id=$7;';
+  let safeValues = [author, title, isbn, image_url, description, bookshelf, req.params.id];
+
+  client.query(SQL, safeValues)
+    .then(() => {
+      res.redirect(`/books/${req.params.id}`);
+    })
+    .catch(err => {console.error(err)});
+}
+
+function deleteBook(req, res){
+  let SQL = 'DELETE FROM books WHERE id=$1';
+  let safeValues = [req.params.id];
+
+  client.query(SQL, safeValues)
+    .then(() =>{
+      res.redirect('/');
+    })
 }
 
 //this is the Book constructor that handles data formatting.
@@ -135,7 +175,6 @@ function Book(bookObject){
 
 //this function handles all incoming errors
 function handleError(req, res) {
-  //console.error(error);
   res.render('pages/error', { error: 'Uh Oh' });
 }
 

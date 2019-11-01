@@ -5,7 +5,7 @@
 </head>
 <body onload="init()">
   <%- include('../layout/header') %>
-  <article class="book-results">
+  <article class="favorite-books">
     <% books.forEach(book => { %>
       <%- include('books/detail', {bookInfo: book}) %>
       <div><a href="/books/<%= book.id %>">View Details</a></div>

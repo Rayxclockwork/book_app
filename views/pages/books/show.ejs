@@ -8,9 +8,17 @@
     <title>Book app</title>
   </head>
   <body onload="init()">
-    <%- include('../../layout/header') %>
-    <%- include('detail') %>
+    <article class="single-book">
+      <%- include('../../layout/header') %>
+      <%- include('detail') %>
+      <%- include('edit') %>
+    </article>
+    <button class="update-btn">Update Details</button>
+    <form action="/delete/<%= bookInfo.id %>" method="post">
+      <input type="hidden" name="_method" value="delete">
+      <button class="delete-btn" type="submit">Delete Book</button>
+    </form>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-    <script src="../js/app.js"></script>
+    <script src="../js/single.js"></script>
   </body>
 </html>

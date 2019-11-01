@@ -1,6 +1,6 @@
 function init() {
   $('.menu').on('click', menuHandler);
-  $('.select-btn').on('click', buttonHandler);
+  $('.update-btn').on('click', updateHandler);
   $('.close-btn').on('click', closeHandler);
 }
 
@@ -8,8 +8,8 @@ function menuHandler() {
   $('nav').toggleClass('nav-reveal');
 }
 
-function buttonHandler(event){
-  $(event.target).parent().next().show();
+function updateHandler(){
+  $('.form-section').show();
 }
 
 function closeHandler(event) {
