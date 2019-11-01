@@ -8,8 +8,10 @@
     <title>Book app</title>
   </head>
   <body onload="init()">
-    <%- include('../../layout/header') %>
-    <%- include('detail') %>
+    <article class="single-book">
+      <%- include('../../layout/header') %>
+      <%- include('detail') %>
+    </article>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="../js/app.js"></script>
   </body>

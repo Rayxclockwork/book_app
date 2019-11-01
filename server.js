@@ -135,7 +135,6 @@ function Book(bookObject){
 
 //this function handles all incoming errors
 function handleError(req, res) {
-  //console.error(error);
   res.render('pages/error', { error: 'Uh Oh' });
 }
 
