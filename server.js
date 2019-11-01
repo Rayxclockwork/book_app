@@ -39,6 +39,8 @@ app.post('/add', addBook);
 app.get('/books/:id', singleBook);
 //this handles updating book info
 app.put('/update/:id', updateBook);
+//this handles deleting book entry
+app.delete('/delete/:id', deleteBook);
 //this is general error handling
 app.get('*', handleError);
 
@@ -78,7 +80,11 @@ function searchBook(req, res){
       const bookArray = results.body.items.map(book => {
         return new Book(book.volumeInfo);
       })
-      res.status(200).render('pages/searches/show', {books: bookArray, isEditForm: false});
+      populateDropMenu()
+        .then(shelves =>{
+          let shelvesArray = shelves.rows;
+          res.status(200).render('pages/searches/show', {books: bookArray, isEditForm: false, bookshelves: shelvesArray});
+        })
     })
     .catch((error) => {
       console.error(error);
@@ -134,6 +140,16 @@ function updateBook(req, res){
       res.redirect(`/books/${req.params.id}`);
     })
     .catch(err => {console.error(err)});
+}
+
+function deleteBook(req, res){
+  let SQL = 'DELETE FROM books WHERE id=$1';
+  let safeValues = [req.params.id];
+
+  client.query(SQL, safeValues)
+    .then(() =>{
+      res.redirect('/');
+    })
 }
 
 //this is the Book constructor that handles data formatting.

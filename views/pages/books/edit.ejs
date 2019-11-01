@@ -11,13 +11,16 @@
     <input type="text" name="image_url" value="<%- bookInfo.image_url %>" required>
     <input type="text" name="isbn" value="<%- bookInfo.isbn %>" placeholder="">
     <textarea name="description" placeholder="" cols='30' rows='10' required><%= bookInfo.description %></textarea>
-    <input type="text" name="bookshelf" placeholder="bookshelf name" required>
+    <input type="text" name="bookshelf" placeholder="bookshelf name">
+    <select>
+      <option selected = "<%= bookInfo.bookshelf %>"><%= bookInfo.bookshelf %></option>
+      <% bookshelves.forEach(shelf =>{ %>
+        <% if(shelf.bookshelf !== bookInfo.bookshelf) { %>
+          <option value = "<%= bookInfo.bookshelf %>"><%= shelf.bookshelf %></option>
+        <% } %>
+      <% }) %>
+    </select>
     <% if(isEditForm === true) { %>
-      <select>
-        <% bookshelves.forEach(shelf =>{ %>
-        <option><%= shelf.bookshelf %></option>
-        <% }) %>
-      </select>
       <button type="submit">Update Book</button>
     <% } else { %>
       <button type="submit">Add to Database</button>
