@@ -124,6 +124,7 @@ function singleBook(req, res){
     .catch(err => {console.error(err)});
 }
 
+//populate drop down menu with unique bookshelf categories
 function populateDropMenu(){
   let SQL = 'SELECT DISTINCT bookshelf from books';
   return client.query(SQL);
@@ -142,6 +143,7 @@ function updateBook(req, res){
     .catch(err => {console.error(err)});
 }
 
+//allow book deletion
 function deleteBook(req, res){
   let SQL = 'DELETE FROM books WHERE id=$1';
   let safeValues = [req.params.id];
