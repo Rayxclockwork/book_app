@@ -10,9 +10,11 @@ function menuHandler() {
 
 function updateHandler(){
   $('.form-section').show();
+  $('.update-btn').hide();
 }
 
 function closeHandler(event) {
   event.preventDefault();
   $(event.target).parent().hide();
+  $('.update-btn').show();
 }
