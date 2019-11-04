@@ -1,10 +1,5 @@
 'use strict';
 
-unction selectHandler(event) {
-  let keyValue = event.target.value;
-  $('.book-shelf').val(keyValue);
-  console.log($('#bookShelf'));
- }
 
 
 function init() {
@@ -25,5 +20,3 @@ function closeHandler(event) {
   event.preventDefault();
   $(event.target).parent().hide();
 }
-
-$('select').on('change', selectHandler);
