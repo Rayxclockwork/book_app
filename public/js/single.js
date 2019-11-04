@@ -1,3 +1,12 @@
+'use strict';
+
+function selectHandler(event) {
+  let keyValue = event.target.value;
+  $('.book-shelf').val(keyValue);
+  console.log($('#bookShelf'));
+}
+
+
 function init() {
   $('.menu').on('click', menuHandler);
   $('.update-btn').on('click', updateHandler);
@@ -18,3 +27,5 @@ function closeHandler(event) {
   $(event.target).parent().hide();
   $('.update-btn').show();
 }
+
+$('select').on('change', selectHandler);

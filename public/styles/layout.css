@@ -1,5 +1,26 @@
+body{
+  text-align: center;
+}
 
+.book-container{
+  padding:10px;
+  text-align: center;
+}
 
-@media (min-width: 1024px) {
+@media (min-width: 960px) {
+  .favorite-books{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding:10vw;
+  }
+  
+  .book-container > p{
+    max-width: 100px;
+  }
+
+  .book-container{
+    padding:20px;
+  }
 
 }

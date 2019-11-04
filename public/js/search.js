@@ -1,3 +1,7 @@
+'use strict';
+
+
+
 function init() {
   $('.menu').on('click', menuHandler);
   $('.select-btn').on('click', buttonHandler);
