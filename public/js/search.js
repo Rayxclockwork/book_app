@@ -11,7 +11,6 @@ function init() {
   $('.menu').on('click', menuHandler);
   $('.select-btn').on('click', buttonHandler);
   $('.close-btn').on('click', closeHandler);
-  $('.form-section').hide();
 }
 
 function menuHandler() {
