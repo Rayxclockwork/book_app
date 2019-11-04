@@ -1,13 +1,13 @@
 .nav-section {
   position: relative;
-  background-color: #244765;
+  background-color: #3f1052;
   width: 100%;
   text-align: right;
 }
 
 .nav-section a {
   text-decoration: none;
-  color: #bfd7ec; 
+  color: #b19bca; 
 }
 
 .menu {
@@ -26,16 +26,16 @@
   width: 40px;
   height: 5px;
   margin: 3px auto 3px auto;
-  background-color: #bfd7ec;
+  background-color: #9f84be;
   transition: all 300ms ease-in-out;
 }
 
 .menu:hover div{
-  background-color: #7198b9;
+  background-color: #735994;
 }
 
 .menu:active div{
-  background-color: #0d2e49;
+  background-color: #2e0d49;
 }
 
 nav {
@@ -55,9 +55,9 @@ nav {
 }
 
 nav ul li {
-  border: 1px solid #10293f;
+  border: 1px solid #120716;
   padding: 0.5em;
-  background-color: #244765;
+  background-color: #3f1052;
   transition: all 300ms ease-in-out;
 }
 
@@ -66,5 +66,5 @@ nav ul li:last-child {
 }
 
 nav ul li:hover {
-  background-color: #3a5e7e; 
+  background-color: #350949; 
 }
